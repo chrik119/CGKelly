@@ -3,6 +3,17 @@ body{
     padding: 0;
 }
 
+#colButton{
+    border: 0;
+}
+
+#colButton:focus {outline:0;}
+
 .navbar{
-    width: 100%;
+    width: 100% !important;
+    margin: 0 !important;
+}
+
+.hidden{
+    display: none !important;
 }
