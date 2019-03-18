@@ -9,6 +9,6 @@ app.get('/', function(req, res){
     res.render('home');
 });
 
-app.listen(3000, function(){
+app.listen(port, function(){
     console.log('Server Launched On ' + port);
 });
