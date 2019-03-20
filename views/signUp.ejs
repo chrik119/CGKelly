@@ -1,0 +1,17 @@
+<% include partials/header %>
+<link rel="stylesheet" type="text/css" href="../css/signUp.css">
+<h1>Sign Up</h1>
+
+<form method='POST' action='/users' class='ui form'>
+    <div class='field'>
+        <label>User Name</label>
+        <input type="text" name="username" placeholder="user name">
+    </div>
+    <div class='field'>
+        <label>Password</label>
+        <input type="text" name="password" placeholder="password">
+    </div>
+    <button class='ui submit button' type="submit">Register</button>
+</form>
+
+<% include partials/footer %>
