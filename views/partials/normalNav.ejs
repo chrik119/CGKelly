@@ -5,7 +5,18 @@
     <a href="/" class='item'>Todo List</a>
     <a href="/" class='item'>RPS</a>
     <div class="right menu">
-        <a href="/" class='item'>Login</a>
-        <a href="users/new" class='item'>Register</a>
+        <% if(gUser == ""){ %>
+            <a href="/" class='item'>Login</a>
+            <a href="/users/new" class='item'>Register</a>
+        <% } else {%>
+            <div class="ui dropdown item">
+                <div class="text"><%= gUser %></div>
+                <i class="dropdown icon"></i>
+                <div class="menu">
+                    <a href="/" class='item'>Profile</a>
+                    <a href="/" class='item'>Logout</a>
+                </div>
+            </div>
+        <% } %>
     </div>
 </div>

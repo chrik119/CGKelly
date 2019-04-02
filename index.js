@@ -6,6 +6,7 @@ var bodyParser      = require('body-parser');
 var sanitizer       = require('express-sanitizer');
 var port = process.env.PORT || 3000;
 var dbConnection = process.env.MONGODB_URI || 'mongodb://localhost:27017/my_users';
+var gUser = "";
 
 ////////////////
 // APP CONFIG //
@@ -31,34 +32,40 @@ var User = mongoose.model('User', userSchema);
 // ROUTES //
 ////////////
 app.get('/', function(req, res){
-    res.render('home');
+    res.render('home', {gUser:gUser});
 });
 
 app.get('/users/new', function(req, res){
-    res.render('signUp');
+    var error = req.query.error || 0;
+    res.render('signUp', {error: error , gUser:gUser});
 });
 
 app.post('/users/', function(req, res){
     req.body.username = req.sanitize(req.body.username);
     req.body.password = req.sanitize(req.body.password);
-    User.find({username: req.body.username}, function(err, user){
-        if(err){
-            console.log(err);
-            res.redirect('/');
-        } else if(user.length > 0) {
-            console.log('Found');
-            res.redirect('/users/new');
-        } else {
-            User.create({username: req.body.username, password: req.body.password}, function(err, user){
-                console.log('Create');
-                if(err){
-                    res.redirect('/');
-                } else {
-                    res.redirect('/');
-                }
-            });
-        }
-    })
+    if (req.body.username.length < 3){
+        res.render('signUp', {error: 2 , gUser:gUser});
+    } else if(req.body.password.length < 5){
+        res.render('signUp', {error: 3 , gUser:gUser});
+    } else {
+        User.find({username: req.body.username}, function(err, user){
+            if(err){
+                console.log(err);
+                res.redirect('/');
+            } else if(user.length > 0) {
+                res.render('signUp', {error: 1 , gUser:gUser});
+            } else {
+                User.create({username: req.body.username, password: req.body.password}, function(err, user){
+                    if(err){
+                        res.redirect('/');
+                    } else {
+                        gUser = req.body.username;
+                        res.redirect('/');
+                    }
+                });
+            }
+        });
+    }
 });
 
 app.listen(port, function(){

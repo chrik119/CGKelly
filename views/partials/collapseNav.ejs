@@ -9,6 +9,14 @@
     <a href="/" class='item'>Color Game</a>
     <a href="/" class='item'>Todo List</a>
     <a href="/" class='item'>RPS</a>
-    <a href="/" class='item'>Login</a>
-    <a href="/users/new" class='item'>Register</a>
+    <% if(gUser == ""){ %>
+        <a href="/" class='item'>Login</a>
+        <a href="/users/new" class='item'>Register</a>
+    <% } else {%>
+    <div id='profButton' class="menu item"><%= gUser %><i class="dropdown icon"></i></div>
+        <div id='profMenu' class='ui vertical menu navbar hidden'>
+            <a href="/" class='item'>Profile</a>
+            <a href="/" class='item'>Logout</a>
+        </div>
+    <% } %>
 </div>

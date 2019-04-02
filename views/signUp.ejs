@@ -1,7 +1,6 @@
 <% include partials/header %>
 <link rel="stylesheet" type="text/css" href="../css/signUp.css">
 <h1>Sign Up</h1>
-
 <form method='POST' action='/users' class='ui form'>
     <div class='field'>
         <label>User Name</label>
@@ -11,6 +10,27 @@
         <label>Password</label>
         <input type="text" name="password" placeholder="password">
     </div>
+    <div class="ui message">
+        <p><strong>USER NAME:</strong> Must be greater than 3 characters.</p>
+        <p><strong>PASSWORD:</strong> Must be greater than 5 characters.</p>
+    </div>
+
+
+    <% if(error > 0){ %>
+        <div class="ui negative message">
+            <i class="close icon"></i>
+            <div class="header">
+                ERROR
+            </div>
+            <% if(error == 1){ %>
+                <p>That User Name Is Taken</p>
+            <% } else if(error == 2){ %>
+                <p>That User Name Is Too Short</p>
+            <% } else if(error == 3){%>
+            <p>That Password Is Too Short</p>
+            <% } %>
+        </div>
+    <% } %>
     <button class='ui submit button' type="submit">Register</button>
 </form>
 
